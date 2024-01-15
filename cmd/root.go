@@ -18,13 +18,13 @@ var rootCmd = &cobra.Command{
 	Short: "Generate a random password",
 	Long: `Generate a random passord with alphanumeric and special characters.
 	
-	For example: passgen 12 --no-special`,
+	For example: passgen -l 12 --no-special`,
 
 	Run: generatePassword,
 }
 
 func init() {
-	rootCmd.Flags().IntP("length", "l", 20, "The length of the password to generate.")
+	rootCmd.Flags().IntP("length", "l", 20, "The length of the password to generate. Default is 20.")
 	rootCmd.Flags().BoolP("no-alpha", "a", false, "Exclude alphabetical characters from the password generation.")
 	rootCmd.Flags().BoolP("no-num", "n", false, "Exclude numberical characters from the password generation.")
 	rootCmd.Flags().BoolP("no-special", "s", false, "Exclude special characters from the password generation.")
