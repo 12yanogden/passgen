@@ -24,10 +24,11 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.Flags().IntP("length", "l", 20, "The length of the password to generate. Default is 20.")
+	rootCmd.Flags().IntP("length", "l", 20, "The length of the password to generate. Default: 20.")
 	rootCmd.Flags().BoolP("no-alpha", "a", false, "Exclude alphabetical characters from the password generation.")
 	rootCmd.Flags().BoolP("no-num", "n", false, "Exclude numberical characters from the password generation.")
 	rootCmd.Flags().BoolP("no-special", "s", false, "Exclude special characters from the password generation.")
+	rootCmd.Flags().StringP("specials", "p", "!@#$%^&*()_+{}[]|;:,.<>?-=", "The special characters used to generate the password. Default: !@#$%^&*()_+{}[]|;:,.<>?-=")
 }
 
 func generatePassword(cmd *cobra.Command, args []string) {
@@ -35,6 +36,7 @@ func generatePassword(cmd *cobra.Command, args []string) {
 	noAlpha, _ := cmd.Flags().GetBool("no-alpha")
 	noNum, _ := cmd.Flags().GetBool("no-num")
 	noSpecial, _ := cmd.Flags().GetBool("no-special")
+	specials, _ := cmd.Flags().GetString("specials")
 	charset := ""
 	password := make([]byte, length)
 
@@ -52,7 +54,7 @@ func generatePassword(cmd *cobra.Command, args []string) {
 	}
 
 	if !noSpecial {
-		charset += "!@#$%^&*()_+{}[]|;:,.<>?-="
+		charset += specials
 	}
 
 	for i := range password {
@@ -60,6 +62,7 @@ func generatePassword(cmd *cobra.Command, args []string) {
 	}
 
 	clipboard.PushBytes(password)
+	fmt.Println("Copied to your clipboard")
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
