@@ -1,6 +1,3 @@
-/*
-Copyright © 2024 Ryan Ogden 12yanogden@gmail.com
-*/
 package cmd
 
 import (
